@@ -62,3 +62,7 @@ luci-app-smartdns
 # 默认主题argon
 
 luci-theme-argon
+
+# 赞赏码
+如果您觉得还不错请支持我持续更好的创作
+![Image text](https://raw.github.com/yourName/repositpry/master/yourprojectName/img-folder/test.jpg)
