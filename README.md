@@ -65,7 +65,7 @@ luci-app-smartdns
 
 luci-theme-argon
 
-# 赞赏码
+# 微信赞赏码
 如果您觉得还不错请支持我持续更好的创作
 
 ![Image text](https://github.com/mzwrt/RAx3000m/blob/1f1223de54bcf87e85471ad04cc8814a6cdee4d9/zanshang.png)
