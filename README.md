@@ -2,7 +2,7 @@
 
 带istore和常用插件
 
-#默认安装的插件
+# 默认安装的插件
 具体作用请自行搜索
 
 luci-app-accesscontrol
@@ -59,6 +59,6 @@ luci-app-socat
 
 luci-app-smartdns
 
-#默认主题argon
+# 默认主题argon
 
 luci-theme-argon
