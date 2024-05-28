@@ -1,69 +1,23 @@
 # MZwrt RAX3000m 云编译
+此版本为精简版，自用版本，极限精简如果安装插件可能会出现缺少内核等情况
+因为我常用openclash和adguardhome默认兼容此插件
+纯原版安装剩余空间88.7M足够使用
 
-带istore商店
 
-常用插件基本全带了
+
+# 兼容的插件
+默认兼容所有官方插件
+
+已测试
+luci-app-openclash
+luci-app-adguardhome
+luci-app-smartdns
+luci-app-gowebdav
 
 # 默认安装的插件
-具体作用请自行搜索
+luci-app-adguardhome  （官方库未提供后台界面安装会不显示）
 
-luci-app-accesscontrol
 
-luci-app-filetransfer
-
-luci-app-ksmbd
-
-luci-app-accesscontrol
-
-luci-app-argon-config
-
-luci-app-arpbind
-
-luci-app-autotimeset
-
-luci-app-bypass
-
-luci-app-ddns
-
-luci-app-ddnsto
-
-luci-app-diskman
-
-luci-app-eqos-mtk
-
-luci-app-guest-wifi
-
-luci-app-idns
-
-luci-app-mac
-
-luci-app-passwall
-
-luci-app-passwall2
-
-luci-app-ramfree
-
-luci-app-ssr-plus
-
-luci-app-statistics
-
-luci-app-store
-
-luci-app-ttyd
-
-luci-app-upnp
-
-luci-app-vssr
-
-luci-app-wol
-
-luci-app-socat
-
-luci-app-smartdns
-
-# 默认主题argon
-
-luci-theme-argon
 
 # 微信赞赏码
 如果您觉得还不错请支持我持续更好的创作
