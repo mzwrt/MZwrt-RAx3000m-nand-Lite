@@ -10,8 +10,11 @@
 
 已测试
 luci-app-openclash
+
 luci-app-adguardhome
+
 luci-app-smartdns
+
 luci-app-gowebdav
 
 # 默认安装的插件
