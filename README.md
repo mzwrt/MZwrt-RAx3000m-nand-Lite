@@ -23,14 +23,55 @@ CONFIG_PACKAGE_odhcp6c_ext_cer_id=0
 
 兼容所有官方插件
 
-已测试兼容的插件
-luci-app-openclash
 
-luci-app-adguardhome
+# 兼容第三方插件
 
-luci-app-smartdns
+首先安装我编译的插件，在后台安装你想兼容的插件，
 
-luci-app-gowebdav
+下面以：luci-app-docker插件为例：
+
+
+依赖的软件包 kmod-fs-btrfs 在所有仓库都未提供。
+
+依赖的软件包 kmod-dm 在所有仓库都未提供。
+
+依赖的软件包 kmod-br-netfilter 在所有仓库都未提供。
+
+依赖的软件包 kmod-ikconfig 在所有仓库都未提供。
+
+依赖的软件包 kmod-nf-ipvs 在所有仓库都未提供。
+
+依赖的软件包 kmod-veth 在所有仓库都未提供。
+
+出现这个错误是因为编译时候未编译进去这几个软件包，官方的源码仓库也为提供此软件包
+
+修改config文件
+
+查找所有报错的软件包在编译时候编译进去就可以了
+
+例如 kmod-fs-btrfs 软件包
+
+在config文件里面搜索 kmod-fs-btrfs 
+
+    # CONFIG_PACKAGE_kmod-fs-btrfs is not set
+    修改成
+    CONFIG_PACKAGE_kmod-fs-btrfs=y
+
+第二种解决方法：
+
+在编译的时候直接将 docker 编译进去
+
+
+搜索luci-app-dockerman
+
+    # CONFIG_PACKAGE_luci-app-dockerman is not set
+    改成
+    CONFIG_PACKAGE_luci-app-dockerman=y
+
+第一种方法适合只做兼容不安装插件
+
+第二种方法直接安装所需插件
+
 
 # 默认安装的插件
 luci-app-adguardhome  （官方库未提供后台界面安装会不显示）
