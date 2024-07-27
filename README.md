@@ -62,6 +62,30 @@
 
 第二种方法直接安装所需插件
 
+# 2024年7月27日更新
+
+优化编译参数
+
+CONFIG_DEFAULT_TARGET_OPTIMIZATION="-Os -pipe -mcpu=cortex-a53" 
+
+改为
+
+CONFIG_DEFAULT_TARGET_OPTIMIZATION="-Os -O2 -pipe -march=armv8-a -mcpu=cortex-a53"
+
+添加针对armv8-a特性的一些优化和编译器-O2 优化不选择-O3的原因是路由器最主要的是稳定不是性能-O3不会提高多少性能但是可能会降低稳定性和不确定性
+
+2.添加对passwall的支持这样就可以满足所有主流vpn协议的支持
+
+添加一下四个模块
+
+CONFIG_PACKAGE_libatomic=y
+
+CONFIG_PACKAGE_iptables-mod-conntrack-extra=y
+
+CONFIG_PACKAGE_libstdcpp=y
+
+CONFIG_PACKAGE_iptables-mod-iprange=y
+
 
 # 默认安装的插件
 luci-app-adguardhome  （官方库未提供后台界面安装会不显示）
