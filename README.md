@@ -70,7 +70,9 @@ CONFIG_DEFAULT_TARGET_OPTIMIZATION="-Os -pipe -mcpu=cortex-a53"
 
 改为
 
-CONFIG_DEFAULT_TARGET_OPTIMIZATION="-Os -O2 -pipe -march=armv8-a -mcpu=cortex-a53"
+CONFIG_DEFAULT_TARGET_OPTIMIZATION="-Os -O2 -pipe -fstack-protector -ftree-vectorize -flto -march=armv8-a -mcpu=cortex-a53"
+
+增加一些安全性参数
 
 添加针对armv8-a特性的一些优化和编译器-O2 优化不选择-O3的原因是路由器最主要的是稳定不是性能-O3不会提高多少性能但是可能会降低稳定性和不确定性
 
