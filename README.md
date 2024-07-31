@@ -74,7 +74,7 @@ CONFIG_DEFAULT_TARGET_OPTIMIZATION="-Os -O2 -pipe -fstack-protector -ftree-vecto
 
 增加一些安全性参数
 
-添加针对armv8-a特性的一些优化和编译器-O2 优化不选择-O3的原因是路由器最主要的是稳定不是性能-O3不会提高多少性能但是可能会降低稳定性和不确定性
+添加针对armv8-a特性的一些优化和编译器-O2 优化
 
 2.添加对passwall的支持这样就可以满足所有主流vpn协议的支持
 
