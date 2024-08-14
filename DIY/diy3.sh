@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-cat <<EOL >> /package/base-files/files/etc/sysctl.conf
+cat <<EOL >> package/base-files/files/etc/sysctl.conf
 
 # Defaults are configured in /etc/sysctl.d/* and can be customized in this file
 vm.swappiness=10
