@@ -4,6 +4,7 @@
 cat <<EOL >> package/base-files/files/etc/sysctl.conf
 vm.swappiness=10
 vm.vfs_cache_pressure=50
+net.core.default_qdisc=fq
 
 fs.nr_open=1200000
 fs.file-max=200000
