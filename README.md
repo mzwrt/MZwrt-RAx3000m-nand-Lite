@@ -9,22 +9,16 @@
 
 2.优化rx 和 tx 队列大小，路由器后台-->系统-->启动项-->本地启动脚本里面的 exit 0 上面添加以下代码，来修改默认值是1000改为1024
 
-#!/bin/sh
-for iface in eth0 eth1 rax0 ra0; do
-
-    if [ -d /sys/class/net/$iface/queues/rx-0 ]; then
-    
-        echo 1024 | tee /sys/class/net/$iface/queues/rx-0/rps_flow_cnt
-        
-    fi
-    
-    if [ -d /sys/class/net/$iface/queues/tx-0 ]; then
-    
-        echo 1024 | tee /sys/class/net/$iface/queues/tx-0/xps_queue_len
-        
-    fi
-    
-done
+     #!/bin/sh
+     # 设置每个支持的接口的 rx 和 tx 队列大小
+     for iface in eth0 eth1 rax0 ra0; do
+     if [ -d /sys/class/net/$iface/queues/rx-0 ]; then
+     echo 1024 | tee /sys/class/net/$iface/queues/rx-0/rps_flow_cnt
+     fi
+     if [ -d /sys/class/net/$iface/queues/tx-0 ]; then
+     echo 1024 | tee /sys/class/net/$iface/queues/tx-0/xps_queue_len
+     fi
+     done
 
 
 
