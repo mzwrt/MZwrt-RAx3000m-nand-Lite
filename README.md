@@ -69,17 +69,9 @@
 
 # 2024年7月27日更新
 
-优化编译参数
-
-CONFIG_DEFAULT_TARGET_OPTIMIZATION="-Os -pipe -mcpu=cortex-a53" 
-
-改为
-
-CONFIG_DEFAULT_TARGET_OPTIMIZATION="-Os -O2 -pipe -fstack-protector -ftree-vectorize -flto -march=armv8-a -mcpu=cortex-a53"
-
 增加一些安全性参数
 
-添加针对armv8-a特性的一些优化和编译器-O2 优化
+添加针对armv8-a特性的一些优化和编译器优化
 
 2.添加对passwall的支持这样就可以满足所有主流vpn协议的支持
 
