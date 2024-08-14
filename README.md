@@ -16,7 +16,9 @@
 
 兼容所有官方插件
 
-因为我常用openclash和adguardhome默认兼容此插件
+兼容openclash
+兼容adguardhome--默认安装
+兼容passwall
 
 # 如何兼容第三方插件
 
