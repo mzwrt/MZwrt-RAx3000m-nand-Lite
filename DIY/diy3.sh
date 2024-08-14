@@ -2,8 +2,6 @@
 
 
 cat <<EOL >> package/base-files/files/etc/sysctl.conf
-
-# Defaults are configured in /etc/sysctl.d/* and can be customized in this file
 vm.swappiness=10
 vm.vfs_cache_pressure=50
 
@@ -48,7 +46,7 @@ EOL
 > /etc/rc.local
 
 # 添加脚本
-cat <<EOL >> /etc/rc.local
+cat <<EOL >> package/base-files/files/etc/rc.local
 # Put your custom commands here that should be executed once
 # the system init finished. By default this file does nothing.
 #!/bin/sh
@@ -79,10 +77,10 @@ EOL
 
 # 开启irqbalance
 # 修改 option enabled '0' 为 option enabled '1'
-sed -i "s/option enabled '0'/option enabled '1'/g" /etc/config/irqbalance
+sed -i "s/option enabled '0'/option enabled '1'/g" package/base-files/files/etc/config/irqbalance
 
 # 取消 option interval '10' 前面的 # 号
-sed -i "s/#option interval '10'/option interval '10'/g" /etc/config/irqbalance
+sed -i "s/#option interval '10'/option interval '10'/g" package/base-files/files/etc/config/irqbalance
 
 
 echo "diy3运行完成"
