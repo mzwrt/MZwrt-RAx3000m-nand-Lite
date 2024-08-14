@@ -17,7 +17,9 @@
 兼容所有官方插件
 
 兼容openclash
+
 兼容adguardhome--默认安装
+
 兼容passwall
 
 # 如何兼容第三方插件
