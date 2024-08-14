@@ -43,3 +43,5 @@ net.ipv4.tcp_timestamps=1
 net.ipv4.tcp_sack=1
 net.ipv4.tcp_rfc1337=1
 EOL
+
+echo "diy3运行完成"
