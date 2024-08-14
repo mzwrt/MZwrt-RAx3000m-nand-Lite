@@ -6,6 +6,7 @@
 截至2024年8月14日经过六个月的严格测试，未发现bug，高负载情况下运行良好，有问题请移步此处恩山论坛反馈：<a href="https://www.right.com.cn/forum/thread-8378503-1-1.html" target="_blank" rel="noopener noreferrer">RAX3000M-nand-云编译-精简版-自编译</a>
 
 
+
 使用建议：
 
 如果使用openclash或者其他软件，使用海外节点最好在后台-->网络-->网络加速-->TCP 拥塞控制算法 建议使用hybla而不是无脑BBR，hybla是针对高延迟网络优化算法而BBR属于通用优化算法，这两种算法在500M网速测试中hybla速度更快，延迟更低
