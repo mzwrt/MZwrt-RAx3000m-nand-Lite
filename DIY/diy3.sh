@@ -44,4 +44,38 @@ net.ipv4.tcp_sack=1
 net.ipv4.tcp_rfc1337=1
 EOL
 
+# 清空 /etc/rc.local 文件
+> /etc/rc.local
+
+# 添加脚本
+cat <<EOL >> /etc/rc.local
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+#!/bin/sh
+
+# 设置每个支持的接口的 RX 和 TX 队列大小
+for iface in br-lan eth0 eth1 rax0 ra0; do
+  # 配置 RX 队列
+  if [ -d /sys/class/net/$iface/queues/rx-0 ]; then
+    # 设置 rps_flow_cnt
+    if [ -f /sys/class/net/$iface/queues/rx-0/rps_flow_cnt ]; then
+      echo 1024 > /sys/class/net/$iface/queues/rx-0/rps_flow_cnt
+    fi
+  fi
+
+  # 配置 TX 队列
+  if [ -d /sys/class/net/$iface/queues/tx-0 ]; then
+    # 设置 byte_queue_limits
+    if [ -d /sys/class/net/$iface/queues/tx-0/byte_queue_limits ]; then
+      echo 1024 > /sys/class/net/$iface/queues/tx-0/byte_queue_limits/limit
+      echo 2048 > /sys/class/net/$iface/queues/tx-0/byte_queue_limits/limit_max
+      echo 512 > /sys/class/net/$iface/queues/tx-0/byte_queue_limits/limit_min
+    fi
+  fi
+done
+
+exit 0
+EOL
+
+
 echo "diy3运行完成"
