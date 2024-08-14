@@ -77,5 +77,12 @@ done
 exit 0
 EOL
 
+# 开启irqbalance
+# 修改 option enabled '0' 为 option enabled '1'
+sed -i "s/option enabled '0'/option enabled '1'/g" /etc/config/irqbalance
+
+# 取消 option interval '10' 前面的 # 号
+sed -i "s/#option interval '10'/option interval '10'/g" /etc/config/irqbalance
+
 
 echo "diy3运行完成"
