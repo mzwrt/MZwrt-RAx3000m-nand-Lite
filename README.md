@@ -11,7 +11,7 @@
 
      #!/bin/sh
      # 设置每个支持的接口的 rx 和 tx 队列大小
-     for iface in eth0 eth1 rax0 ra0; do
+     for iface in br-lan eth0 eth1 rax0 ra0; do
      if [ -d /sys/class/net/$iface/queues/rx-0 ]; then
      echo 1024 | tee /sys/class/net/$iface/queues/rx-0/rps_flow_cnt
      fi
