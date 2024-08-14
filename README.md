@@ -3,6 +3,31 @@
 
 纯原版安装后剩余空间88.7M足够使用
 
+使用建议：
+
+1.默认会带irqbalance是一个cpu自动平衡中断请求的小程序，编辑/etc/config/irqbalance文件将里面的option enabled '0' 0改为1和取消option interval '10'前面的#号，具体使用方法自行搜索很多教程这是基本的优化
+
+2.优化rx 和 tx 队列大小，路由器后台-->系统-->启动项-->本地启动脚本里面的 exit 0 上面添加以下代码，来修改默认值是1000改为1024
+
+#!/bin/sh
+for iface in eth0 eth1 rax0 ra0; do
+
+    if [ -d /sys/class/net/$iface/queues/rx-0 ]; then
+    
+        echo 1024 | tee /sys/class/net/$iface/queues/rx-0/rps_flow_cnt
+        
+    fi
+    
+    if [ -d /sys/class/net/$iface/queues/tx-0 ]; then
+    
+        echo 1024 | tee /sys/class/net/$iface/queues/tx-0/xps_queue_len
+        
+    fi
+    
+done
+
+
+
 
 # 插件兼容
 因为精简许多模块导致很多第三方插件无法安装，
@@ -102,19 +127,11 @@ fs.nr_open=1200000
 
 fs.file-max=200000
 
-# Enable TCP SYN cookies
-
 net.ipv4.tcp_syncookies=1
-
-# Increase the maximum number of connections in the backlog
 
 net.core.somaxconn=65535
 
-# Increase the maximum number of queued packets
-
 net.core.netdev_max_backlog=1000
-
-# Increase buffer sizes for TCP
 
 net.core.rmem_default=65536
 
@@ -123,9 +140,6 @@ net.core.wmem_default=65536
 net.core.rmem_max=16777216
 
 net.core.wmem_max=16777216
-
-
-# TCP settings
 
 net.ipv4.tcp_max_syn_backlog=4096
 
