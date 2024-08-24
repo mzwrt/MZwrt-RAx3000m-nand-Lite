@@ -11,27 +11,8 @@
 
 如果使用openclash或者其他软件，使用海外节点最好在后台-->网络-->网络加速-->TCP 拥塞控制算法 建议使用hybla而不是无脑BBR，hybla是针对高延迟网络优化算法而BBR属于通用优化算法，这两种算法在500M网速测试中hybla速度更快，延迟更低
 
-替换immortalwrt的自建软件仓库为官方仓库：`后台界面-->系统-->软件包-->右上角的配置opkg-->替换/etc/opkg/distfeeds.conf里面的内容为以下内容`
 
-注意你的网络问题，也可以替换为国内openwrt云源
 
-immortalwrt默认源
-```
-    src/gz immortalwrt_base https://mirrors.vsean.net/openwrt/releases/21.02-SNAPSHOT/packages/aarch64_cortex-a53/base
-    src/gz immortalwrt_extraipk https://mirrors.vsean.net/openwrt/releases/21.02-SNAPSHOT/packages/aarch64_cortex-a53/extraipk
-    src/gz immortalwrt_luci https://mirrors.vsean.net/openwrt/releases/21.02-SNAPSHOT/packages/aarch64_cortex-a53/luci
-    src/gz immortalwrt_packages https://mirrors.vsean.net/openwrt/releases/21.02-SNAPSHOT/packages/aarch64_cortex-a53/packages
-    src/gz immortalwrt_routing https://mirrors.vsean.net/openwrt/releases/21.02-SNAPSHOT/packages/aarch64_cortex-a53/routing
-```
-openwrt官方源
-
-```
-    src/gz openwrt_base https://mirror-03.infra.openwrt.org/releases/21.02.3/packages/aarch64_cortex-a53/base/
-    src/gz openwrt_luci https://mirror-03.infra.openwrt.org/releases/21.02.3/packages/aarch64_cortex-a53/luci/
-    src/gz openwrt_packages https://mirror-03.infra.openwrt.org/releases/21.02.3/packages/aarch64_cortex-a53/packages/
-    src/gz openwrt_routing https://mirror-03.infra.openwrt.org/releases/21.02.3/packages/aarch64_cortex-a53/routing/
-    src/gz openwrt_telephony https://mirror-03.infra.openwrt.org/releases/21.02.3/packages/aarch64_cortex-a53/telephony/
-```
 
 # 插件兼容性
 
@@ -45,7 +26,7 @@ openwrt官方源
 
 首先安装我编译的openwrt，在后台安装插件会出现类似以下错误就说明系统不兼容此插件
 
-下面以：luci-app-docker插件为例：
+下面以：`luci-app-docker`插件为例：
 
 
 依赖的软件包 kmod-fs-btrfs 在所有仓库都未提供。
@@ -71,22 +52,22 @@ openwrt官方源
 例如 kmod-fs-btrfs 软件包
 
 在config文件里面搜索 kmod-fs-btrfs 
-
+```
     # CONFIG_PACKAGE_kmod-fs-btrfs is not set
     修改成
     CONFIG_PACKAGE_kmod-fs-btrfs=y
-
+```
 第二种方法：适合小白：
 
 在编译的时候直接将 docker 编译进去
 
 
-搜索luci-app-dockerman
-
+搜索`luci-app-dockerman`
+```
     # CONFIG_PACKAGE_luci-app-dockerman is not set
     改成
     CONFIG_PACKAGE_luci-app-dockerman=y
-
+```
 
 第一种方法适合只做兼容不安装插件
 
@@ -102,24 +83,24 @@ openwrt官方源
 
 添加一下四个模块
 
-CONFIG_PACKAGE_libatomic=y
+`CONFIG_PACKAGE_libatomic=y`
 
-CONFIG_PACKAGE_iptables-mod-conntrack-extra=y
+`CONFIG_PACKAGE_iptables-mod-conntrack-extra=y`
 
-CONFIG_PACKAGE_libstdcpp=y
+`CONFIG_PACKAGE_libstdcpp=y`
 
-CONFIG_PACKAGE_iptables-mod-iprange=y
+`CONFIG_PACKAGE_iptables-mod-iprange=y`
 
 # 20248月14更新内和参数优化
 
 添加diy3脚本来添加内核优化参数，优化rx 和 tx 队列大小由1000改为1024,tx最大2048最小512 和 开启irqbalance小程序cpu自动平衡中断请求
 
-添加了一个china_dns.sh脚本。我使用的是自建dns服务器在海外，解决国内域名解析慢，速度慢问题，针对国内域名和苹果域名解析的bash脚本默认全部指定114.114.114.114
+添加了一个china_dns.sh脚本。我使用的是自建dns服务器在海外，解决国内域名解析慢，速度慢问题，针对国内域名和苹果域名解析的bash脚本默认全部指定`114.114.114.114`
 
-china_dns.sh解析使用方法，复制以下命令在ssh里面运行一下就可以了
-
+`china_dns.sh`解析使用方法，复制以下命令在ssh里面运行一下就可以了
+```
     curl -s https://raw.githubusercontent.com/mzwrt/MZwrt-RAx3000m-nand-Lite/main/china_dns.sh -o /tmp/china_dns.sh && bash /tmp/china_dns.sh && rm /tmp/china_dns.sh
-
+```
 # 默认安装的插件
 luci-app-adguardhome  （官方库未提供后台界面安装会不显示）
 
