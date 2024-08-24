@@ -13,6 +13,7 @@
 
 替换immortalwrt的自建软件仓库为官方仓库：后台界面-->系统-->软件包-->右上角的配置opkg-->替换/etc/opkg/distfeeds.conf里面的内容为以下内容
 注意你的网络问题，也可以替换为国内openwrt云源
+
 immortalwrt默认源
 ```
     src/gz immortalwrt_base https://mirrors.vsean.net/openwrt/releases/21.02-SNAPSHOT/packages/aarch64_cortex-a53/base
