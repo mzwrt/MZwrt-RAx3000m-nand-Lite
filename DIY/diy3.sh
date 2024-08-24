@@ -43,7 +43,7 @@ net.ipv4.tcp_rfc1337=1
 EOL
 
 # 清空 /etc/rc.local 文件
-> /etc/rc.local
+> package/base-files/files/etc/rc.local
 
 # 添加脚本
 cat <<EOL >> package/base-files/files/etc/rc.local
