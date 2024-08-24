@@ -11,7 +11,8 @@
 
 如果使用openclash或者其他软件，使用海外节点最好在后台-->网络-->网络加速-->TCP 拥塞控制算法 建议使用hybla而不是无脑BBR，hybla是针对高延迟网络优化算法而BBR属于通用优化算法，这两种算法在500M网速测试中hybla速度更快，延迟更低
 
-替换immortalwrt的自建软件仓库为官方仓库：后台界面-->系统-->软件包-->右上角的配置opkg-->替换/etc/opkg/distfeeds.conf里面的内容为以下内容
+替换immortalwrt的自建软件仓库为官方仓库：`后台界面-->系统-->软件包-->右上角的配置opkg-->替换/etc/opkg/distfeeds.conf里面的内容为以下内容`
+
 注意你的网络问题，也可以替换为国内openwrt云源
 
 immortalwrt默认源
