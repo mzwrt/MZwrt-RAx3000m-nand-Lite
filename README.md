@@ -11,6 +11,26 @@
 
 如果使用openclash或者其他软件，使用海外节点最好在后台-->网络-->网络加速-->TCP 拥塞控制算法 建议使用hybla而不是无脑BBR，hybla是针对高延迟网络优化算法而BBR属于通用优化算法，这两种算法在500M网速测试中hybla速度更快，延迟更低
 
+替换immortalwrt的自建软件仓库为官方仓库：后台界面-->系统-->软件包-->右上角的配置opkg-->替换/etc/opkg/distfeeds.conf里面的内容为以下内容
+注意你的网络问题，也可以替换为国内openwrt云源
+immortalwrt默认源
+```
+    src/gz immortalwrt_base https://mirrors.vsean.net/openwrt/releases/21.02-SNAPSHOT/packages/aarch64_cortex-a53/base
+    src/gz immortalwrt_extraipk https://mirrors.vsean.net/openwrt/releases/21.02-SNAPSHOT/packages/aarch64_cortex-a53/extraipk
+    src/gz immortalwrt_luci https://mirrors.vsean.net/openwrt/releases/21.02-SNAPSHOT/packages/aarch64_cortex-a53/luci
+    src/gz immortalwrt_packages https://mirrors.vsean.net/openwrt/releases/21.02-SNAPSHOT/packages/aarch64_cortex-a53/packages
+    src/gz immortalwrt_routing https://mirrors.vsean.net/openwrt/releases/21.02-SNAPSHOT/packages/aarch64_cortex-a53/routing
+```
+openwrt官方源
+
+```
+    src/gz openwrt_base https://mirror-03.infra.openwrt.org/releases/21.02.3/packages/aarch64_cortex-a53/base/
+    src/gz openwrt_luci https://mirror-03.infra.openwrt.org/releases/21.02.3/packages/aarch64_cortex-a53/luci/
+    src/gz openwrt_packages https://mirror-03.infra.openwrt.org/releases/21.02.3/packages/aarch64_cortex-a53/packages/
+    src/gz openwrt_routing https://mirror-03.infra.openwrt.org/releases/21.02.3/packages/aarch64_cortex-a53/routing/
+    src/gz openwrt_telephony https://mirror-03.infra.openwrt.org/releases/21.02.3/packages/aarch64_cortex-a53/telephony/
+```
+
 # 插件兼容性
 
 兼容openclash
@@ -98,22 +118,6 @@ china_dns.sh解析使用方法，复制以下命令在ssh里面运行一下就�
 
     curl -s https://raw.githubusercontent.com/mzwrt/MZwrt-RAx3000m-nand-Lite/main/china_dns.sh -o /tmp/china_dns.sh && bash /tmp/china_dns.sh && rm /tmp/china_dns.sh
 
-# 2024年8月24更新
-修复拨号连接，最近光猫坏了，换了光猫，就想用路由器拨号，发现问题，不能拨号，修复一下
-添加以下模块：
-```
-kmod-ppp
-```
-替换immortalwrt的自建软件仓库为官方仓库：后台界面-->系统-->软件包-->右上角的配置opkg-->替换/etc/opkg/distfeeds.conf里面的内容为以下内容
-注意你的网络问题，也可以替换为国内云源
-
-```
-    src/gz openwrt_base https://mirror-03.infra.openwrt.org/releases/21.02.3/packages/aarch64_cortex-a53/base/
-    src/gz openwrt_luci https://mirror-03.infra.openwrt.org/releases/21.02.3/packages/aarch64_cortex-a53/luci/
-    src/gz openwrt_packages https://mirror-03.infra.openwrt.org/releases/21.02.3/packages/aarch64_cortex-a53/packages/
-    src/gz openwrt_routing https://mirror-03.infra.openwrt.org/releases/21.02.3/packages/aarch64_cortex-a53/routing/
-    src/gz openwrt_telephony https://mirror-03.infra.openwrt.org/releases/21.02.3/packages/aarch64_cortex-a53/telephony/
-```
 # 默认安装的插件
 luci-app-adguardhome  （官方库未提供后台界面安装会不显示）
 
