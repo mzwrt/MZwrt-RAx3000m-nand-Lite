@@ -76,15 +76,17 @@ exit 0
 EOL
 
 cat <<EOL >> package/base-files/files/etc/uci-defaults/99-irqbalance-settings
-# 开启irqbalance
+#!/bin/sh
+# 开启 irqbalance
 # 修改 option enabled '0' 为 option enabled '1'
-sed -i "s/option enabled '0'/option enabled '1'/g" package/base-files/files/etc/config/irqbalance
+sed -i "s/option enabled '0'/option enabled '1'/g" /etc/config/irqbalance
 
 # 取消 option interval '10' 前面的 # 号
-sed -i "s/#option interval '10'/option interval '10'/g" package/base-files/files/etc/config/irqbalance
+sed -i "s/#option interval '10'/option interval '10'/g" /etc/config/irqbalance
 
 exit 0
 EOL
+
 
 
 echo "diy3运行完成"
