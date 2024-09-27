@@ -115,8 +115,11 @@ CONFIG_PACKAGE_kmod-mppe=y
 ```
 说明：
 option proto 'pppoe'：将 wan 接口的协议从 dhcp 改为 pppoe。
+
 option username 'your-username'：填入你的宽带账号。
+
 option password 'your-password'：填入你的宽带密码。
+
 # 默认安装的插件
 luci-app-adguardhome  （官方库未提供后台界面安装会不显示）
 
