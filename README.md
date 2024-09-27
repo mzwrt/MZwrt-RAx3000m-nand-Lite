@@ -107,8 +107,6 @@ CONFIG_PACKAGE_shellsync=y
 CONFIG_PACKAGE_kmod-ppp=y
 CONFIG_PACKAGE_kmod-mppe=y
 ```
-修复一处错误
-TXCMD DBG support  
 # 默认安装的插件
 luci-app-adguardhome  （官方库未提供后台界面安装会不显示）
 
