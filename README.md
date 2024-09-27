@@ -101,7 +101,7 @@
 ```
     curl -s https://raw.githubusercontent.com/mzwrt/MZwrt-RAx3000m-nand-Lite/main/china_dns.sh -o /tmp/china_dns.sh && bash /tmp/china_dns.sh && rm /tmp/china_dns.sh
 ```
-# 2024-9-8更新，针对不能拨号连接问题添加以下软件包----最近没空，暂未解决
+# 2024-9-27更新，针对不能拨号连接问题添加以下软件包
 ```
 CONFIG_PACKAGE_shellsync=y
 CONFIG_PACKAGE_kmod-ppp=y
