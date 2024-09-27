@@ -107,6 +107,12 @@ CONFIG_PACKAGE_shellsync=y
 CONFIG_PACKAGE_kmod-ppp=y
 CONFIG_PACKAGE_kmod-mppe=y
 ```
+如果后台找不到pppoe协议可以修改`/etc/config/network`文件将里面的`config interface 'wan'`下面的`option proto 'dhcp'`这一行删除然后添加以下几行，运行`/etc/init.d/network restart`或者重启路由器就可以了
+```
+    option proto 'pppoe'
+    option username 'your-username'
+    option password 'your-password'
+```
 # 默认安装的插件
 luci-app-adguardhome  （官方库未提供后台界面安装会不显示）
 
