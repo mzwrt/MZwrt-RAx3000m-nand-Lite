@@ -133,7 +133,7 @@ option username 'your-username'：填入你的宽带账号。
 option password 'your-password'：填入你的宽带密码。
 
 # 2024-11-4更新，
-修复WIFI固件错误，上游仓库配置错误导致wifi 6GHz接口报错
+修复WIFI固件错误，wifi 6GHz接口报错
 ```
 CONFIG_MTK_MT_WIFI_MT7981_20240823=y
 CONFIG_MTK_MT_WIFI_FIRMWARE_PATH_MT7981="mt7981-fw-20240823"
