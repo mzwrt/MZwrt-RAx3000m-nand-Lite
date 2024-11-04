@@ -1,4 +1,7 @@
 # MZwrt RAX3000m 云编译
+
+【建议所有人更新2024-11-04以后的版本，修复许多错误】
+
 此版本为精简版，自用版本，极限精简如果安装插件可能会出现缺少内核等情况
 
 纯原版安装后剩余空间85.6M足够使用
@@ -128,6 +131,52 @@ option proto 'pppoe'：将 wan 接口的协议从 dhcp 改为 pppoe。
 option username 'your-username'：填入你的宽带账号。
 
 option password 'your-password'：填入你的宽带密码。
+
+# 2024-11-4更新，
+修复WIFI固件错误，上游仓库配置错误导致wifi 6GHz接口报错
+```
+CONFIG_MTK_MT_WIFI_MT7981_20240823=y
+CONFIG_MTK_MT_WIFI_FIRMWARE_PATH_MT7981="mt7981-fw-20240823"
+CONFIG_MTK_MT_WIFI_DRIVER_VERSION_7672=y
+```
+修复加密模块，
+```
+CONFIG_PACKAGE_kmod-crypto-sha512=y
+CONFIG_PACKAGE_kmod-crypto-sha256=y
+CONFIG_PACKAGE_kmod-crypto-seqiv=y
+CONFIG_PACKAGE_kmod-crypto-rng=y
+CONFIG_PACKAGE_kmod-crypto-md5=y
+CONFIG_PACKAGE_kmod-crypto-md4=y
+CONFIG_PACKAGE_kmod-crypto-hmac=y
+CONFIG_PACKAGE_kmod-crypto-ghash=y
+CONFIG_PACKAGE_kmod-crypto-gf128=y
+CONFIG_PACKAGE_kmod-crypto-gcm=y
+CONFIG_PACKAGE_kmod-crypto-des=y
+CONFIG_PACKAGE_kmod-crypto-des=y
+CONFIG_PACKAGE_kmod-crypto-ctr=y
+CONFIG_PACKAGE_kmod-crypto-cmac=y
+```
+修复luci-app-turboacc-mtk
+```
+# CONFIG_PACKAGE_TURBOACC_INCLUDE_FLOW_OFFLOADING is not set
+# CONFIG_PACKAGE_TURBOACC_INCLUDE_FAST_CLASSIFIER is not set
+CONFIG_PACKAGE_TURBOACC_INCLUDE_SHORTCUT_FE_CM=y
+```
+改为
+```
+# CONFIG_PACKAGE_TURBOACC_INCLUDE_FLOW_OFFLOADING is not set
+CONFIG_PACKAGE_TURBOACC_INCLUDE_FAST_CLASSIFIER=y
+# CONFIG_PACKAGE_TURBOACC_INCLUDE_SHORTCUT_FE_CM is not set
+```
+添加wifi管理工具iw
+```
+CONFIG_PACKAGE_iw=y
+
+```
+修复 802.11n 协议
+```
+CONFIG_MTK_DOT11_N_SUPPORT=y
+```
 
 # 默认安装的插件
 luci-app-adguardhome  （官方库未提供后台界面安装会不显示）
