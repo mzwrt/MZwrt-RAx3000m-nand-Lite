@@ -1,5 +1,9 @@
 # MZwrt RAX3000m 云编译
 
+这个是应该是你们所说的闭源驱动定版本，还有一个开源驱动版本（WIFI高功率驱动版）：[MZwrt-RAx3000m-nand-Lite-lede](https://github.com/mzwrt/MZwrt-RAx3000m-nand-Lite-lede.git)
+
+上面两个固件一致，刷哪一个看个人需求把
+
 【建议所有人更新2024-11-04以后的版本，修复许多错误】
 
 此版本为精简版，自用版本，极限精简如果安装插件可能会出现缺少内核等情况
