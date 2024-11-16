@@ -40,7 +40,7 @@ net.ipv4.tcp_window_scaling=1
 net.ipv4.tcp_timestamps=1
 net.ipv4.tcp_sack=1
 net.ipv4.tcp_rfc1337=1
-# 增加连接跟踪表，大量ping会报错
+# 修复超过300线程ping报错
 net.netfilter.nf_conntrack_max=262144
 EOL
 
