@@ -102,7 +102,7 @@ jobs:
       working-directory: ./openwrt
       run: |
         mkdir -p ./artifact/${{ steps.generate_name.outputs.RELEASE_NAME }}/
-        cp -r ./bin/targets/mediatek/filogic/*.bin ./artifact/${{ steps.generate_name.outputs.RELEASE_NAME }}/
+        cp -r ./bin/targets/mediatek/mt7981/*.bin ./artifact/${{ steps.generate_name.outputs.RELEASE_NAME }}/
         # 在指定路径下找到所有以 openwrt 开头的文件，并替换文件名中的 openwrt 为 MzWrt
         find ./artifact/${{ steps.generate_name.outputs.RELEASE_NAME }}/ -type f -name "openwrt*" -exec bash -c '
           for file; do
