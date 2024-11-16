@@ -104,7 +104,7 @@ jobs:
         mkdir -p ./artifact/${{ steps.generate_name.outputs.RELEASE_NAME }}/
         cp -r ./bin/targets/mediatek/mt7981/*.bin ./artifact/${{ steps.generate_name.outputs.RELEASE_NAME }}/
         # 在指定路径下找到所有以 openwrt 开头的文件，并替换文件名中的 openwrt 为 MzWrt
-        find ./artifact/${{ steps.generate_name.outputs.RELEASE_NAME }}/ -type f -name "openwrt*" -exec bash -c '
+        find ./artifact/${{ steps.generate_name.outputs.RELEASE_NAME }}/ -type f -name "immortalwrt*" -exec bash -c '
           for file; do
             new_name="${file//immortalwrt/MzWrt}"
             mv "$file" "$new_name"
