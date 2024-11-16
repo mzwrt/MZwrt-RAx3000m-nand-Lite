@@ -33,8 +33,7 @@ jobs:
         sudo -E rm -rf /usr/share/dotnet /usr/local/lib/android/sdk /etc/mysql /etc/php /usr/local/share/boost
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update -y
-        sudo -E apt full-upgrade -y
-        # 仓库未提供删除包：libdebuginfod-dev 
+        sudo -E apt full-upgrade -y 
         sudo -E apt-get install -y ack antlr3 aria2 gfortran re2c libiptc-dev indent rpm diffstat libattr1-dev asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3.8 python3-pip libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev libfuse-dev libfuse-dev python3-setuptools
         sudo -E apt-get clean
         git config --global user.name 'GitHub Actions' && git config --global user.email 'waiquwang@gmail.com'
@@ -80,42 +79,15 @@ jobs:
     - name: Build firmware
       working-directory: ./openwrt
       run: |
-        make -j$(nproc) V=s
-        
-    - name: Assemble Artifact
-      id: assemble_artifact
-      run: |
-        rm -rf ./ARM_Out
-        mkdir -p ./ARM_Out/
-        
-        getmd5()
-        {
-        md5sum=`md5sum $1`
-        md5=`echo ${md5sum% *}`
-        md5=`echo ${md5:0:10}`
-        }
-        
-        rom=openwrt/bin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981-cmcc_rax3000m-squashfs-sysupgrade.bin
-        getmd5 $rom        
-        cp -a $rom ./ARM_Out/MzWrt-CMCC-RAX3000M-5.4-$(date +%Y%m%d)_${md5}.bin
-               
-    - name: Upload Firmwares
-      uses: actions/upload-artifact@main
-      with:
-        name: CMCC-RAX3000M-OpenWrt
-        path: ARM_Out/*.bin
-
-    - name: Upload config
-      uses: actions/upload-artifact@main
-      with:
-        name: rax3000m-config
-        path: openwrt/.config
-
-    - name: Upload Packages
-      uses: actions/upload-artifact@main
-      with:
-        name: CMCC-RAX3000M-Packages
-        path: openwrt/bin/packages
+        make -j$(nproc) || make -j1 V=99
+        echo "======================="
+        echo "Space usage:"
+        echo "======================="
+        df -h
+        echo "======================="
+        du -h --max-depth=1 ./ --exclude=build_dir --exclude=bin
+        du -h --max-depth=1 ./build_dir
+        du -h --max-depth=1 ./bin
         
     - name: Generate Tag & Release Name
       id: generate_name
@@ -123,13 +95,55 @@ jobs:
         time=$(date +%Y%m%d%H%M%S)
         release_tag="$time"
         release_name="MzWrt-CMCC-RAX3000M-$(date +%Y%m%d)"
-        echo "release_name=$release_name" >> $GITHUB_OUTPUT
-        echo "release_tag=$release_tag" >> $GITHUB_OUTPUT      
+        echo "RELEASE_TAG=$release_tag" >> $GITHUB_OUTPUT
+        echo "RELEASE_NAME=$release_name" >> $GITHUB_OUTPUT
+
+    - name: Create versioned release directory
+      working-directory: ./openwrt
+      run: |
+        mkdir -p ./artifact/${{ steps.generate_name.outputs.RELEASE_NAME }}/
+        cp -r ./bin/targets/mediatek/filogic/*.bin ./artifact/${{ steps.generate_name.outputs.RELEASE_NAME }}/
+        # 在指定路径下找到所有以 openwrt 开头的文件，并替换文件名中的 openwrt 为 MzWrt
+        find ./artifact/${{ steps.generate_name.outputs.RELEASE_NAME }}/ -type f -name "openwrt*" -exec bash -c '
+          for file; do
+            new_name="${file//immortalwrt/MzWrt}"
+            mv "$file" "$new_name"
+        done
+        ' bash {} +
+
+    - name: Calculate SHA-256 for modified .bin files
+      id: sha256_step
+      run: |
+        sha256sums_content=""
+        target_dir="./artifact/${{ steps.generate_name.outputs.RELEASE_NAME }}"
+        for bin_file in $target_dir/*.bin; do
+          if [ -f "$bin_file" ]; then
+            sha256=$(sha256sum "$bin_file" | awk '{ print $1 }')
+            sha256sums_content+="$bin_file: $sha256"$'\n'
+          fi
+        done
+        echo "sha256sums=$sha256sums_content" >> $GITHUB_ENV
+        echo "sha256sums_content=$sha256sums_content" >> $GITHUB_OUTPUT  # 传递给后续步骤
+
+
+    - name: Upload Firmwares
+      uses: actions/upload-artifact@main
+      with:
+        name: CMCC-RAX3000M-OpenWrt
+        path: openwrt/artifact/${{ steps.generate_name.outputs.RELEASE_NAME }}/*
 
     - name: Create Release & Upload
       uses: ncipollo/release-action@v1.14.0
       with:
-        artifacts: ARM_Out/*
-        name: ${{ steps.generate_name.outputs.release_name }}
-        tag: ${{ steps.generate_name.outputs.release_tag }}
+        artifacts: openwrt/artifact/${{ steps.generate_name.outputs.RELEASE_NAME }}/*
+        name: ${{ steps.generate_name.outputs.RELEASE_NAME }}
+        tag: ${{ steps.generate_name.outputs.RELEASE_TAG }}
+        body: |
+            ## CMCC-RAX3000M-nand 发布
+
+            以下是本次发布文件的 SHA-256 校验和：
+
+            | 文件名 | SHA-256 哈希值 |
+            | -------- | ------------- |
+            ${{ steps.sha256_step.outputs.sha256sums_content }}
         token: ${{ secrets.GITHUB_TOKEN }}
