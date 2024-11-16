@@ -111,20 +111,6 @@ jobs:
         done
         ' bash {} +
 
-    - name: Calculate SHA-256 for modified .bin files
-      id: sha256_step
-      run: |
-        sha256sums_content=""
-        target_dir="./artifact/${{ steps.generate_name.outputs.RELEASE_NAME }}"
-        for bin_file in $target_dir/*.bin; do
-          if [ -f "$bin_file" ]; then
-            sha256=$(sha256sum "$bin_file" | awk '{ print $1 }')
-            sha256sums_content+="$bin_file: $sha256"$'\n'
-          fi
-        done
-        echo "sha256sums=$sha256sums_content" >> $GITHUB_ENV
-        echo "sha256sums_content=$sha256sums_content" >> $GITHUB_OUTPUT  # 传递给后续步骤
-
 
     - name: Upload Firmwares
       uses: actions/upload-artifact@main
@@ -139,11 +125,5 @@ jobs:
         name: ${{ steps.generate_name.outputs.RELEASE_NAME }}
         tag: ${{ steps.generate_name.outputs.RELEASE_TAG }}
         body: |
-            ## CMCC-RAX3000M-nand 发布
-
-            以下是本次发布文件的 SHA-256 校验和：
-
-            | 文件名 | SHA-256 哈希值 |
-            | -------- | ------------- |
-            ${{ steps.sha256_step.outputs.sha256sums_content }}
+            ## CMCC-RAX3000M-nand
         token: ${{ secrets.GITHUB_TOKEN }}
